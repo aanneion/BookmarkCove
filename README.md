@@ -4,7 +4,7 @@
 
 **A free, private bookmark manager that runs 100% in your browser.**
 
-Import `bookmarks.html` from any browser → clean up what you don't need → move links between folders → export a file that imports anywhere.
+Import from any browser → clean up, tag, dedupe, reorganize → export a file that imports anywhere.
 
 [**Live Demo →**](https://bookmarkcove.vercel.app/) · [Report a Bug](https://github.com/aanneion/bookmarkcove/issues) · [Request a Feature](https://github.com/aanneion/bookmarkcove/issues)
 
@@ -14,6 +14,7 @@ Import `bookmarks.html` from any browser → clean up what you don't need → mo
 ![License: MIT](https://img.shields.io/badge/License-MIT-2f6feb?style=flat-square)
 ![No Trackers](https://img.shields.io/badge/tracking-none-2f6feb?style=flat-square)
 ![100% Local](https://img.shields.io/badge/data-local-2f6feb?style=flat-square)
+![PWA Ready](https://img.shields.io/badge/PWA-ready-2f6feb?style=flat-square)
 
 </div>
 
@@ -23,7 +24,7 @@ Import `bookmarks.html` from any browser → clean up what you don't need → mo
 
 **BookmarkCove** is a single-file, offline-first bookmark manager built for people who are tired of bloated bookmark extensions that demand an account, upload their data to a server, and track everything they click.
 
-Every major browser can export bookmarks as a Netscape-format `bookmarks.html` file. BookmarkCove reads that file, presents it as a clean, searchable folder tree, and lets you curate it — delete, restore, move, reorganize — before exporting a fresh file you can import back into Chrome, Firefox, Edge, Safari, Opera, or Brave.
+Every major browser can export bookmarks as a Netscape-format `bookmarks.html` file (and you can also bring in JSON, JSONL, or CSV from anywhere). BookmarkCove reads your file, presents it as a clean, searchable folder tree, and lets you curate it — bulk-select to clean up, drag to reorder, tag to organize, find duplicates in one click — before exporting a fresh file you can import back into Chrome, Firefox, Edge, Safari, Opera, or Brave.
 
 Everything happens **in your browser**. Nothing is uploaded. There is no backend. There is no account.
 
@@ -31,20 +32,30 @@ Everything happens **in your browser**. Nothing is uploaded. There is no backend
 
 ## ✨ Features
 
-| | Feature | Description |
-|---|---|---|
-| 📥 | **Import bookmarks** | Load `bookmarks.html` from any browser via the file picker or drag-and-drop |
-| 🔍 | **Instant search** | Filter bookmarks by name or URL as you type (`/` or `⌘/Ctrl+K` to focus) |
-| ❌ | **Delete bookmarks** | Cross out a single link — a bottom bar lets you restore everything |
-| 📁 | **Delete folders** | Remove an entire folder (and its contents) in one click |
-| ↗️ | **Move links** | Reassign any bookmark to a different folder from a dropdown |
-| 🖼️ | **Smart favicons** | Uses embedded icons from the export first, then DuckDuckGo — toggleable in Settings |
-| 📤 | **Standards-compliant export** | Generates a Netscape bookmark file that imports into every major browser, folders intact |
-| 🌗 | **Light / dark / auto theme** | Follows your system theme or pick one manually |
-| 💾 | **Auto-save** | Your edits persist in `localStorage` — reload the page and everything is still there |
-| 🔒 | **100% local** | No backend, no analytics, no tracking, no account, no cloud |
-| 📱 | **Responsive** | Works on desktop, tablet, and mobile browsers |
-| ⌨️ | **Keyboard-friendly** | Skip-link, focus styles, `/` shortcut, `Esc` to close menus |
+### Import & Export
+- 📥 **Multi-format import** — Netscape `bookmarks.html`, **JSON**, **JSONL / NDJSON**, **CSV** (auto-detects format)
+- 📤 **Standards-compliant export** — Netscape bookmark file that imports into every major browser, folders and tags intact
+- 🖱️ **Drag-and-drop or file picker** — Drop a file anywhere on the page
+
+### Cleanup & Organization
+- 🔍 **Instant search** — Filter by name, URL, or tag as you type (`/` or `⌘/Ctrl+K` to focus)
+- ☑️ **Bulk-select** — Tick multiple bookmarks or an entire folder to move or delete at once
+- ❌ **Delete / restore** — Cross out links or folders; the bottom bar restores everything
+- ↗️ **Move bookmarks** — Reassign one or many links to a different folder from a dropdown
+- 🎯 **Drag-and-drop reordering** — Drag a link onto another link to reorder, onto a folder to nest it
+- 🏷️ **Tags / labels** — Add comma-separated tags per bookmark; chips show up inline and are included in search + export
+- 🧬 **Duplicate detection** — One click finds URLs that appear more than once and removes the extras (restorable)
+
+### Experience
+- 🖼️ **Smart favicons** — Uses icons embedded in the export first, then DuckDuckGo — toggleable in Settings
+- 🌗 **Light / dark / auto theme** — Follows your system or pick one manually
+- 💾 **Auto-save** — Edits persist in `localStorage`; reload and everything is still there
+- 📱 **Responsive** — Works on desktop, tablet, and mobile
+- ⌨️ **Keyboard-friendly** — Skip-link, focus styles, `/` shortcut, `Esc` to close menus
+- 📲 **Installable PWA** — Add to home screen; offline caching via service worker (optional `sw.js`)
+
+### Privacy
+- 🔒 **100% local** — No backend, no analytics, no tracking, no account, no cloud
 
 ---
 
@@ -64,16 +75,16 @@ BookmarkCove was built privacy-first.
 
 ### Use the hosted version
 
-Just open [**bookmarkcove.vercel.app**](https://bookmarkcove.vercel.app/) and drop your `bookmarks.html` file onto the page.
+Open [**bookmarkcove.vercel.app**](https://bookmarkcove.vercel.app/) and drop your bookmarks file onto the page.
 
 ### Run it locally
 
-Because it's a single HTML file with no build step, you can just open `index.html` in a browser:
+Single HTML file, no build step:
 
 ```bash
 git clone https://github.com/aanneion/bookmarkcove.git
 cd bookmarkcove
-# Then simply open index.html in your browser, or:
+# Then open index.html in your browser, or:
 npx serve .
 ```
 
@@ -92,7 +103,7 @@ npx serve .
 
 **Option C — Any static host**
 
-The whole app is `index.html`. Drop it into GitHub Pages, Netlify, Cloudflare Pages, or any static file server.
+The core app is `index.html`. Drop it into GitHub Pages, Netlify, Cloudflare Pages, or any static file server.
 
 ---
 
@@ -101,8 +112,9 @@ The whole app is `index.html`. Drop it into GitHub Pages, Netlify, Cloudflare Pa
 ```
 bookmarkcove/
 ├── index.html          # The entire application (HTML + CSS + JS)
+├── sw.js               # Optional: service worker for offline caching
 ├── README.md           # This file
-└── (optional)          # For a full SEO/PWA setup:
+└── (optional SEO/PWA)
     ├── robots.txt
     ├── sitemap.xml
     ├── manifest.json
@@ -112,13 +124,32 @@ bookmarkcove/
     └── icon-512.png
 ```
 
-The core app is deliberately a **single file** — no bundler, no dependencies, no build step. Open it and it works.
+The core app is deliberately a **single file** — no bundler, no dependencies, no build step. The service worker is the only optional companion file (skip it and the app still works, just without offline caching).
+
+---
+
+## 📥 Import Formats
+
+| Format | Extension | Notes |
+|---|---|---|
+| **Netscape bookmarks** | `.html`, `.htm` | Native format for every major browser |
+| **JSON** | `.json` | Array of `{ name, url, tags?, folder? }` |
+| **JSONL / NDJSON** | `.jsonl`, `.ndjson` | One JSON object per line |
+| **CSV** | `.csv` | Columns: `name`, `url`, `tags`, `folder` (case-insensitive) |
+
+The importer auto-detects the format from the file extension, and falls back to sniffing the content if the extension is missing.
+
+### CSV example
+
+```csv
+name,url,folder,tags
+GitHub,https://github.com,Dev,code;git
+MDN,https://developer.mozilla.org,Dev,reference;docs
+```
 
 ---
 
 ## 🔄 How to Export Bookmarks From Your Browser
-
-BookmarkCove needs a `bookmarks.html` file to import. Here's how to get one from each browser:
 
 <details>
 <summary><b>Google Chrome</b></summary>
@@ -166,13 +197,13 @@ Once exported, drop the file into BookmarkCove. After cleaning up, click **Expor
 
 ## 🧠 How It Works
 
-Under the hood, BookmarkCove is a small, dependency-free JavaScript application:
+BookmarkCove is a small, dependency-free JavaScript application:
 
-1. **Parse** — Reads your `bookmarks.html` file line-by-line and parses the Netscape bookmark format (`<DT><H3>` for folders, `<DT><A>` for links) into a nested JavaScript tree.
-2. **Render** — Walks the tree and renders folders/links into the DOM. Everything is plain HTML — no virtual DOM, no framework.
-3. **Edit** — Mutations (delete, restore, move) update the in-memory tree, then re-render.
-4. **Persist** — The tree is JSON-serialized into `localStorage` on every change. Reload the page and your state is preserved.
-5. **Export** — Walks the tree again and emits a fresh Netscape bookmark file you can import into any browser.
+1. **Parse** — Reads the file and parses it into a nested JavaScript tree. Netscape `bookmarks.html` (folders via `<DT><H3>` / links via `<DT><A>`), plus JSON / JSONL / CSV.
+2. **Render** — Walks the tree and renders folders/links into the DOM. Plain HTML — no virtual DOM, no framework.
+3. **Edit** — Mutations (delete, restore, move, drag-reorder, bulk, tags) update the in-memory tree, then re-render.
+4. **Persist** — The tree is JSON-serialized into `localStorage` on every change.
+5. **Export** — Walks the tree again and emits a fresh Netscape bookmark file (`TAGS` preserved) you can import into any browser.
 
 There is no server, no API call, no upload at any step.
 
@@ -188,20 +219,24 @@ There is no server, no API call, no upload at any step.
 | Opera | 76+ | ✅ Tested |
 | Mobile Chrome / Safari | Latest | ✅ Tested |
 
-Any browser that supports ES2015+ (arrow functions, `Map`, `Promise`, `URL`) will work.
+Any browser that supports ES2015+ (arrow functions, `Map`, `Set`, `Promise`, `URL`) will work.
+
+**Note on mobile drag-and-drop:** HTML5 drag-and-drop is desktop-only. On touch devices use **bulk-select + Move to…** instead — it does the same job with less friction.
 
 ---
 
 ## 🗺️ Roadmap
 
+- [x] Bulk-select to delete or move multiple bookmarks at once
+- [x] Drag-and-drop reordering of folders and links
+- [x] Import formats other than `bookmarks.html` (JSON, JSONL, CSV)
+- [x] Tags / labels
+- [x] Duplicate detection and merge
+- [x] Full offline PWA with service worker
 - [ ] Two-way sync via a browser extension (Chrome/Firefox)
-- [ ] Bulk-select to delete or move multiple bookmarks at once
-- [ ] Drag-and-drop reordering of folders and links
-- [ ] Import formats other than `bookmarks.html` (JSON, JSONL, CSV)
-- [ ] Tags / labels
-- [ ] Duplicate detection and merge
-- [ ] Full offline PWA with service worker
 - [ ] Optional encryption of stored data with a passphrase
+- [ ] Full-text search across history snapshots
+- [ ] Folder hierarchy import from CSV path notation (`Dev/Frontend/CSS`)
 
 Have an idea? [Open an issue](https://github.com/aanneion/bookmarkcove/issues).
 
@@ -213,15 +248,15 @@ Contributions, bug reports, and feature requests are welcome.
 
 1. Fork the repo
 2. Create a branch: `git checkout -b feature/your-feature`
-3. Make your changes — keep it dependency-free and single-file
-4. Test in Chrome, Firefox, and mobile
+3. Make your changes — keep it dependency-free and single-file where possible
+4. Test in Chrome, Firefox, Safari, and mobile
 5. Commit: `git commit -m "Add: your feature"`
 6. Push: `git push origin feature/your-feature`
 7. Open a Pull Request
 
 **Guidelines**
 
-- No frameworks, no build tools, no dependencies. The app stays a single `index.html`.
+- No frameworks, no build tools, no runtime dependencies. The app stays a single `index.html`.
 - No third-party trackers, analytics, or CDNs.
 - Preserve accessibility: keyboard navigation, ARIA labels, focus styles.
 - Match the existing minimalist design language.
