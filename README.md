@@ -6,7 +6,7 @@
 
 Import from any browser → clean up, tag, dedupe, reorganize → export a file that imports anywhere.
 
-[**Live Demo →**](https://bookmarkcove.vercel.app/) · [Report a Bug](https://github.com/aanneion/bookmarkcove/issues) · [Request a Feature](https://github.com/aanneion/bookmarkcove/issues)
+[**Live Demo →**](https://bookmarkcove.netlify.app/) · [Report a Bug](https://github.com/aanneion/bookmarkcove/issues) · [Request a Feature](https://github.com/aanneion/bookmarkcove/issues)
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
@@ -15,6 +15,7 @@ Import from any browser → clean up, tag, dedupe, reorganize → export a file 
 ![No Trackers](https://img.shields.io/badge/tracking-none-2f6feb?style=flat-square)
 ![100% Local](https://img.shields.io/badge/data-local-2f6feb?style=flat-square)
 ![PWA Ready](https://img.shields.io/badge/PWA-ready-2f6feb?style=flat-square)
+![Hosted on Netlify](https://img.shields.io/badge/hosted%20on-Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
 
 </div>
 
@@ -48,11 +49,12 @@ Everything happens **in your browser**. Nothing is uploaded. There is no backend
 
 ### Experience
 - 🖼️ **Smart favicons** — Uses icons embedded in the export first, then DuckDuckGo — toggleable in Settings
-- 🌗 **Light / dark / auto theme** — Follows your system or pick one manually
+- 🌗 **Light / dark / auto theme** — Follows your system or pick one manually, with a smooth cross-fade transition
 - 💾 **Auto-save** — Edits persist in `localStorage`; reload and everything is still there
 - 📱 **Responsive** — Works on desktop, tablet, and mobile
 - ⌨️ **Keyboard-friendly** — Skip-link, focus styles, `/` shortcut, `Esc` to close menus
 - 📲 **Installable PWA** — Add to home screen; offline caching via service worker (optional `sw.js`)
+- ✨ **Premium motion** — Spring-eased micro-interactions, smooth expand/collapse, staggered entrance animations, all respecting `prefers-reduced-motion`
 
 ### Privacy
 - 🔒 **100% local** — No backend, no analytics, no tracking, no account, no cloud
@@ -63,7 +65,7 @@ Everything happens **in your browser**. Nothing is uploaded. There is no backend
 
 BookmarkCove was built privacy-first.
 
-- **No server.** The app is a single static HTML file hosted on Vercel's CDN.
+- **No server.** The app is a single static HTML file hosted on Netlify's global CDN.
 - **No tracking.** No Google Analytics, no cookies, no fingerprinting.
 - **No account.** There is nothing to sign up for.
 - **Data stays in your browser.** Your bookmarks are stored in `localStorage` under the key `bc-tree-v1`.
@@ -75,7 +77,7 @@ BookmarkCove was built privacy-first.
 
 ### Use the hosted version
 
-Open [**bookmarkcove.vercel.app**](https://bookmarkcove.vercel.app/) and drop your bookmarks file onto the page.
+Open [**bookmarkcove.netlify.app**](https://bookmarkcove.netlify.app/) and drop your bookmarks file onto the page.
 
 ### Run it locally
 
@@ -88,22 +90,29 @@ cd bookmarkcove
 npx serve .
 ```
 
-### Deploy your own copy
+### Deploy your own copy on Netlify
 
-**Option A — Vercel (recommended)**
+**Option A — Netlify Drop (fastest, no Git)**
 
-1. Fork this repo
-2. Go to [vercel.com/new](https://vercel.com/new) → import the forked repo
-3. Click **Deploy**
+1. Download the repo as a ZIP and extract it — make sure `index.html` sits at the **root** of the folder
+2. Go to [**app.netlify.com/drop**](https://app.netlify.com/drop)
+3. Drag the folder onto the page
+4. Netlify assigns a random subdomain like `elegant-torvalds-8a7b3c.netlify.app`
+5. **Rename it:** Site configuration → **Change site name** → set it to `bookmarkcove` (or anything unique)
+6. Your site is now live at `https://bookmarkcove.netlify.app/` with free auto-provisioned HTTPS
 
-**Option B — Vercel Drop (no Git)**
+**Option B — Netlify + Git (recommended for ongoing updates)**
 
-1. Download the repo as a ZIP and extract it
-2. Go to [vercel.com/drop](https://vercel.com/drop) and drag the folder onto the page
+1. Fork this repo on GitHub
+2. Go to [app.netlify.com](https://app.netlify.com/) → **Add new site** → **Import an existing project**
+3. Pick GitHub → authorize → select your forked repo
+4. Leave the build command empty, publish directory `/`
+5. Click **Deploy site**
+6. Every `git push` to `main` triggers a fresh deploy automatically
 
 **Option C — Any static host**
 
-The core app is `index.html`. Drop it into GitHub Pages, Netlify, Cloudflare Pages, or any static file server.
+The core app is `index.html`. It works unchanged on GitHub Pages, Cloudflare Pages, Vercel, or any static file server.
 
 ---
 
@@ -117,14 +126,13 @@ bookmarkcove/
 └── (optional SEO/PWA)
     ├── robots.txt
     ├── sitemap.xml
-    ├── manifest.json
     ├── og-cover.png
     ├── apple-touch-icon.png
     ├── icon-192.png
     └── icon-512.png
 ```
 
-The core app is deliberately a **single file** — no bundler, no dependencies, no build step. The service worker is the only optional companion file (skip it and the app still works, just without offline caching).
+The core app is deliberately a **single file** — no bundler, no dependencies, no build step. The service worker is the only optional companion file (skip it and the app still works, just without offline caching). Netlify serves everything from the repository root, so keep files at the top level.
 
 ---
 
@@ -225,6 +233,28 @@ Any browser that supports ES2015+ (arrow functions, `Map`, `Set`, `Promise`, `UR
 
 ---
 
+## 🔍 After Deploying — Update These URLs
+
+If you fork this project and deploy to your own Netlify site, replace every occurrence of the demo URL with your own:
+
+1. **`index.html`**
+   - `<link rel="canonical" href="...">`
+   - `<meta property="og:url" content="...">`
+   - `<meta property="og:image" content="...">` (only if you host your own OG image)
+   - Inside both `<script type="application/ld+json">` blocks, the `"url"` field
+2. **`sitemap.xml`**
+   - The `<loc>` element
+3. **`robots.txt`**
+   - The `Sitemap:` line
+4. **This README**
+   - The **Live Demo** link in the header, and the links in the Author section
+
+Then submit the new sitemap to **Google Search Console** and **Bing Webmaster Tools**.
+
+Netlify also provisions free HTTPS automatically and lets you attach a **custom domain** for free (Site configuration → Domain management).
+
+---
+
 ## 🗺️ Roadmap
 
 - [x] Bulk-select to delete or move multiple bookmarks at once
@@ -277,7 +307,7 @@ You're free to use, modify, and distribute this project — personal or commerci
 
 - GitHub: [@aanneion](https://github.com/aanneion)
 - Project: [github.com/aanneion/bookmarkcove](https://github.com/aanneion/bookmarkcove)
-- Live: [bookmarkcove.vercel.app](https://bookmarkcove.vercel.app/)
+- Live: [bookmarkcove.netlify.app](https://bookmarkcove.netlify.app/)
 
 ---
 
